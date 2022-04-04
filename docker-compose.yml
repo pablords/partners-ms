@@ -1,0 +1,67 @@
+version: "2.0"
+
+services:
+
+  partners-db-cache:
+    image: "redis:alpine"
+    container_name: partners-db-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redisdata:/data"
+    command: redis-server --requirepass Redis2019!
+
+  partners-db:
+    image: pablords/partners-db:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    restart: always
+    container_name: partners-db
+    ports:
+      - 3306:3306
+    networks:
+      - app-network
+    expose:
+      - 3306
+    volumes:
+      - partners-db-data:/var/lib/mysql
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_DATABASE: partners
+      MYSQL_ROOT_PASSWORD: user
+    command: --innodb_use_native_aio=0 --socket=/tmp/mysql.sock --bind_address=0.0.0.0
+
+  partners-ms:
+    image: pablords/partners-ms:1.0.0
+    container_name: partners-ms
+    depends_on:
+      - partners-db
+    build: .
+    ports:
+      - 3001:3001
+    networks:
+      - app-network
+    environment:
+      NODE_ENV: production
+      ENVIRONMENT: PRODUCTION
+      APP_HOST: http://localhost
+      APP_PORT: 3001
+      DB_HOST: partners-db
+      DB_ENGINE: mysql
+      DB_PORT: 3306
+      DB_USER: partners-db
+      DB_DATABASE: partners-db
+      DB_PASSWORD: partners-db
+    volumes:
+      - ./:/app
+    command: npm run dev
+
+networks:
+  app-network:
+    driver: 'bridge'
+
+volumes:
+  partners-db-data:
+  redisdata:

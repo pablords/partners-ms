@@ -7,7 +7,7 @@ import RegisterController from "@Controllers/RegisterController"
 import ContactController from "@Controllers/ContactController"
 import { keycloak } from "@Infra/services/keycloak/config"
 import AuthController from "@Controllers/AuthController"
-import { getVersionApi } from "@Utils/getVersion"
+
 
 export const router = express.Router()
 

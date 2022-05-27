@@ -11,6 +11,7 @@ services:
       - "redisdata:/data"
     command: redis-server --requirepass Redis2019!
 
+
   partners-db:
     image: pablords/partners-db:1.0.0
     build:
@@ -26,12 +27,14 @@ services:
       - 3306
     volumes:
       - partners-db-data:/var/lib/mysql
+      
     environment:
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
-      MYSQL_DATABASE: partners
-      MYSQL_ROOT_PASSWORD: user
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     command: --innodb_use_native_aio=0 --socket=/tmp/mysql.sock --bind_address=0.0.0.0
+
 
   partners-ms:
     image: pablords/partners-ms:1.0.0
@@ -39,24 +42,24 @@ services:
     depends_on:
       - partners-db
     build: .
+    entrypoint: ./.docker/entrypoint.sh
     ports:
       - 3001:3001
     networks:
       - app-network
     environment:
-      NODE_ENV: production
-      ENVIRONMENT: PRODUCTION
+      NODE_ENV: development
       APP_HOST: http://localhost
       APP_PORT: 3001
-      DB_HOST: partners-db
+      DB_HOST: ${DB_HOST}
       DB_ENGINE: mysql
       DB_PORT: 3306
-      DB_USER: partners-db
-      DB_DATABASE: partners-db
-      DB_PASSWORD: partners-db
+      DB_USER: ${DB_USER}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./:/app
-    command: npm run dev
+      - ./:/home/node/app
+
 
 networks:
   app-network:

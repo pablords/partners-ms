@@ -1,4 +1,4 @@
 .dockerignore
 coverage
 node_modules
-.env
+

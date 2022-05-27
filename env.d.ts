@@ -17,6 +17,9 @@ declare global {
         KEYCLOAK_HELM: string
         TOKEN_PARTNER_USER: string
         PARTNER_TOPIC_CONTACT: string
+        DB_REDIS_HOST: string
+        DB_REDIS_PORT: string
+        DB_REDIS_PASSWORD: string
       }
     }
   }

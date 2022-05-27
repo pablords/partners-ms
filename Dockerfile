@@ -3,18 +3,19 @@ FROM node:14-slim
 
 SHELL [ "/bin/bash", "-c" ]
 
-WORKDIR /app
+USER node
 
-COPY package.json .
+WORKDIR /home/node/app
+
+COPY --chown=node package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY --chown=node . .
 
 RUN npm run build
 
 
-ENV ENVIRONMENT=PRODUCTION
 ENV HOST=localhost
 ENV APP_HOST=http://localhost
 ENV APP_PORT=3001
@@ -25,6 +26,9 @@ ENV DB_USER=partners
 ENV DB_DATABASE=partners
 ENV DB_PASSWORD=partners
 ENV NODE_ENV=production
+
+RUN chmod +x entrypoint.sh
+RUN /bin/bash ./.docker/entrypoint.sh
 
 EXPOSE 3001
 

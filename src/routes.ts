@@ -6,18 +6,8 @@ import ContractController from "@Controllers/ContractController"
 import RegisterController from "@Controllers/RegisterController"
 import ContactController from "@Controllers/ContactController"
 import { keycloak } from "@Infra/services/keycloak/config"
-import AuthController from "@Controllers/AuthController"
-
 
 export const router = express.Router()
-
-router.post("/login", AuthController.login)
-router.post("/user", AuthController.createUser)
-
-router.use(keycloak.middleware({
-  logout: "/logout",
-  admin: "/"
-}))
 
 router.get("/contacts", keycloak.protect("view"), ContactController.getAllContacts)
 router.get("/contact/:id", keycloak.protect("view"), ContactController.getContract)

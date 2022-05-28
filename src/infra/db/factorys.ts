@@ -1,8 +1,8 @@
-import { IModality } from "@Core/entity"
+import { Modality } from "@Core/entity"
 import { Connection } from "typeorm"
 import { ModalityModel } from "../models/ModalityModel"
 
-export const modalityFactory: IModality[] =
+export const modalityFactory: Modality[] =
     [
       { name: "futebol", description: "esporte" },
       { name: "basquete", description: "esporte" },

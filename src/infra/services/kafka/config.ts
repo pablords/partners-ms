@@ -2,5 +2,5 @@ import { Kafka } from "kafkajs"
 
 export const kafka = new Kafka({
   clientId: "partner-app",
-  brokers: ["localhost:9092"]
+  brokers: ["kafka:29092"]
 })

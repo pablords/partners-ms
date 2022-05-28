@@ -23,9 +23,9 @@ createConnection({
   ],
   synchronize: true,
   logging: process.env.NODE_ENV === "development",
-  timezone: "+03:00"
+  timezone: process.env.TIMEZONE
 }).then(connection => {
-  const res = runFactory(connection)
+  runFactory(connection)
   console.log(FgGreen, "BANCO DE TESTE CRIADO COM SUCESSO!")
 }).catch((error) => {
   if (process.env.NODE_ENV === "development") {

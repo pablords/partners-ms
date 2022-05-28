@@ -7,7 +7,8 @@ services:
     env_file: ./.env
     container_name: partners-db-cache
     networks:
-      - app-network
+      - partners-network
+      - services
     ports:
       - "6379:6379"
     volumes:
@@ -25,10 +26,9 @@ services:
     container_name: partners-db
     ports:
       - 3306:3306
-    expose:
-      - 3306
     networks:
-      - app-network
+      - partners-network
+      - services
     volumes:
       - partners-db-data:/var/lib/mysql
       
@@ -41,6 +41,7 @@ services:
 
 
   partners-ms:
+    restart: always
     env_file: ./.env
     image: pablords/partners-ms:1.0.0
     container_name: partners-ms
@@ -51,7 +52,8 @@ services:
     ports:
       - ${APP_PORT}:3001
     networks:
-      - app-network
+      - partners-network
+      - services
     environment:
       NODE_ENV: ${NODE_ENV}
       APP_HOST: ${APP_HOST}
@@ -67,9 +69,11 @@ services:
 
 
 networks:
-  app-network:
+  partners-network:
     driver: 'bridge'
-
+  services:
+      external: true
+      driver: 'bridge'
 volumes:
   partners-db-data:
   redisdata:

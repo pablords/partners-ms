@@ -27,6 +27,14 @@
                 "summary": "Listagem de contatos sócios",
                 "description": "Essa rota será responsável por listar todos contatos armazenados no banco de dados",
                 "tags": ["Contacts"],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "500": {
                         "description": "Erro! contate o administrador do sistema"
@@ -73,7 +81,7 @@
                 }
             }
         },
-        "/contact/{id}": {
+        "/contacts/{id}": {
             "get": {
                 "summary": "Busca de um contato pelo id",
                 "description": "Essa rota será responsável por buscar um contato pelo id",
@@ -83,6 +91,12 @@
                         "name": "id",
                         "in": "path",
                         "description": "id do contato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -135,7 +149,7 @@
                 }
             }
         },
-        "/contact": {
+        "/contacts/create": {
             "post": {
                 "summary": "Cria um novo contato",
                 "description": "essa rota será responsável por criar um novo contato",
@@ -163,6 +177,14 @@
                         }
                     }
                 },
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "422": {
                         "description": "Dados invalidos"
@@ -212,7 +234,7 @@
                 }
             }
         },
-        "/contact/{id}/update": {
+        "/contacts/{id}/update": {
             "put": {
                 "summary": "Atualiza um contato",
                 "description": "Essa rota será responsável por atualizar um contato. O campo partnerId é obrigatório",
@@ -222,6 +244,12 @@
                         "name": "id",
                         "in": "path",
                         "description": "id do contato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -286,7 +314,7 @@
                 }
             }
         },
-        "/contact/{id}/delete": {
+        "/contacts/{id}/delete": {
             "delete": {
                 "summary": "Deleta um contato",
                 "description": "Essa rota será responsável por deletar um contato. O campo partnerId é obrigatório",
@@ -296,6 +324,12 @@
                         "name": "id",
                         "in": "path",
                         "description": "id do contato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -356,59 +390,11 @@
                 "summary": "Listagem de sócios",
                 "description": "Essa rota será responsável por listar todos sócios armazenados no banco de dados",
                 "tags": ["Partner"],
-                "responses": {
-                    "500": {
-                        "description": "Erro! contate o administrador do sistema"
-                    },
-                    "400": {
-                        "description": "Erro ao processar requisição"
-                    },
-                    "403": {
-                        "description": "Não autorizado"
-                    },
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "aplication/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "type": "number"
-                                        },
-                                        "name": {
-                                            "type": "string"
-                                        },
-                                        "surname": {
-                                            "type": "string"
-                                        },
-                                        "birthDate": {
-                                            "type": "string"
-                                        },
-                                        "createdAt": {
-                                            "type": "string"
-                                        },
-                                        "updatedAt": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/partner/{id}": {
-            "get": {
-                "summary": "Busca de um sócio pelo id",
-                "description": "Essa rota será responsável por buscar um sócio pelo id",
-                "tags": ["Partner"],
                 "parameters": [
                     {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id do sócio",
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -455,7 +441,69 @@
                 }
             }
         },
-        "/partner": {
+        "/partners/{id}": {
+            "get": {
+                "summary": "Busca de um sócio pelo id",
+                "description": "Essa rota será responsável por buscar um sócio pelo id",
+                "tags": ["Partner"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do sócio",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "surname": {
+                                            "type": "string"
+                                        },
+                                        "birthDate": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/partners/create": {
             "post": {
                 "summary": "Cria um novo sócio",
                 "description": "Essa rota será responsável por criar um novo sócio",
@@ -479,6 +527,14 @@
                         }
                     }
                 },
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "422": {
                         "description": "Dados invalidos"
@@ -525,7 +581,7 @@
                 }
             }
         },
-        "/partner/{id}/update": {
+        "/partners/{id}/update": {
             "put": {
                 "summary": "Atualiza um sócio",
                 "description": "Essa rota será responsável por atualizar um sócio pelo",
@@ -535,6 +591,12 @@
                         "name": "id",
                         "in": "path",
                         "description": "id do sócio",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -591,7 +653,7 @@
                 }
             }
         },
-        "/partner/{id}/delete": {
+        "/partners/{id}/delete": {
             "delete": {
                 "summary": "Deleta um sócio",
                 "description": "Essa rota será responsável por deletar um sócio",
@@ -601,6 +663,12 @@
                         "name": "id",
                         "in": "path",
                         "description": "id do sócio",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -643,56 +711,11 @@
                 "summary": "Listagem de modalidades",
                 "description": "Essa rota será responsável por listar todas modalidades cadastradas no banco de dados",
                 "tags": ["Modality"],
-                "responses": {
-                    "500": {
-                        "description": "Erro! contate o administrador do sistema"
-                    },
-                    "400": {
-                        "description": "Erro ao processar requisição"
-                    },
-                    "403": {
-                        "description": "Não autorizado"
-                    },
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "aplication/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "type": "number"
-                                        },
-                                        "name": {
-                                            "type": "string"
-                                        },
-                                        "description": {
-                                            "type": "string"
-                                        },
-                                        "createdAt": {
-                                            "type": "string"
-                                        },
-                                        "updatedAt": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/modality/{id}": {
-            "get": {
-                "summary": "busca uma modalidade pelo id",
-                "description": "Essa rota será responsável por buscar uma modalidade pelo id",
-                "tags": ["Modality"],
                 "parameters": [
                     {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id da modalidade",
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -736,7 +759,66 @@
                 }
             }
         },
-        "/modality": {
+        "/modalities/{id}": {
+            "get": {
+                "summary": "busca uma modalidade pelo id",
+                "description": "Essa rota será responsável por buscar uma modalidade pelo id",
+                "tags": ["Modality"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id da modalidade",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/modalities/create": {
             "post": {
                 "summary": "Cria uma nova modalidade",
                 "description": "Essa rota será responsável por criar uma nova modalidade",
@@ -757,6 +839,14 @@
                         }
                     }
                 },
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "422": {
                         "description": "Dados invalidos"
@@ -800,7 +890,7 @@
                 }
             }
         },
-        "/modality/{id}/update": {
+        "/modalities/{id}/update": {
             "put": {
                 "summary": "Atualiza uma modalide",
                 "description": "Essa rota será responsável por atualizar uma modalidade",
@@ -810,6 +900,12 @@
                         "name": "id",
                         "in": "path",
                         "description": "id da modalidade",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -866,7 +962,7 @@
                 }
             }
         },
-        "/modality/{id}/delete": {
+        "/modalities/{id}/delete": {
             "delete": {
                 "summary": "Deleta uma modalide",
                 "description": "Essa rota será responsável por deletar uma modalidade",
@@ -876,6 +972,12 @@
                         "name": "id",
                         "in": "path",
                         "description": "id da modalidade",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -918,68 +1020,11 @@
                 "summary": "Listagem de contratos",
                 "description": "Essa rota será responsável por listar todos contratos cadastrados no banco de dados",
                 "tags": ["Contract"],
-                "responses": {
-                    "500": {
-                        "description": "Erro! contate o administrador do sistema"
-                    },
-                    "400": {
-                        "description": "Erro ao processar requisição"
-                    },
-                    "403": {
-                        "description": "Não autorizado"
-                    },
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "aplication/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "type": "number"
-                                        },
-                                        "start": {
-                                            "type": "string"
-                                        },
-                                        "status": {
-                                            "type": "string"
-                                        },
-                                        "isActive": {
-                                            "type": "boolean"
-                                        },
-                                        "modalityId": {
-                                            "type": "number"
-                                        },
-                                        "partnerId": {
-                                            "type": "number"
-                                        },
-                                        "dueDate": {
-                                            "type": "string"
-                                        },
-                                        "createdAt": {
-                                            "type": "string"
-                                        },
-                                        "updatedAt": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/contract/{id}": {
-            "get": {
-                "summary": "busca um contrato pelo id",
-                "description": "Essa rota será responsável por buscar um contrato pelo id",
-                "tags": ["Contract"],
                 "parameters": [
                     {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id do contrato",
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -1035,7 +1080,78 @@
                 }
             }
         },
-        "/contract/one": {
+        "/contracts/{id}": {
+            "get": {
+                "summary": "busca um contrato pelo id",
+                "description": "Essa rota será responsável por buscar um contrato pelo id",
+                "tags": ["Contract"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do contrato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "start": {
+                                            "type": "string"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "isActive": {
+                                            "type": "boolean"
+                                        },
+                                        "modalityId": {
+                                            "type": "number"
+                                        },
+                                        "partnerId": {
+                                            "type": "number"
+                                        },
+                                        "dueDate": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/one": {
             "post": {
                 "summary": "Cria um novo contrato",
                 "description": "Essa rota será responsável por criar um novo contrato. O campo partnerId e modalityId são obrigatórios",
@@ -1076,6 +1192,14 @@
                         }
                     }
                 },
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "422": {
                         "description": "Dados invalidos"
@@ -1119,7 +1243,7 @@
                 }
             }
         },
-        "/contract/{id}/update": {
+        "/contracts/{id}/update": {
             "put": {
                 "summary": "Atualiza um contrato",
                 "description": "Essa rota será responsável por atualizar um contrato. O campo partnerId é obrigatório",
@@ -1129,6 +1253,12 @@
                         "name": "id",
                         "in": "path",
                         "description": "id da contrato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -1205,7 +1335,7 @@
                 }
             }
         },
-        "/contract/{id}/delete": {
+        "/contracts/{id}/delete": {
             "delete": {
                 "summary": "Deleta um contrato",
                 "description": "Essa rota será responsável por deletar um contato. O campo partnerId é obrigatório",
@@ -1215,6 +1345,12 @@
                         "name": "id",
                         "in": "path",
                         "description": "id do contrato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],
@@ -1322,6 +1458,14 @@
                         }
                     }
                 },
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "422": {
                         "description": "Dados invalidos"
@@ -1428,6 +1572,12 @@
                         "name": "partnerId",
                         "in": "path",
                         "description": "id do sócio",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
                         "required": true
                     }
                 ],

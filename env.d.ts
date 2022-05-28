@@ -20,6 +20,7 @@ declare global {
         DB_REDIS_HOST: string
         DB_REDIS_PORT: string
         DB_REDIS_PASSWORD: string
+        TIMEZONE: string
       }
     }
   }

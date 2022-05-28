@@ -17,6 +17,9 @@ server.get(`/${getVersionApi()}`, (_, res) => res.send({ message: "partners-ms i
 server.use(`/${getVersionApi()}/docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 server.use(function (req: Request, res: Response, next) {
+  if (req.headers.token) {
+    req.headers.authorization = `bearer ${req.headers.token.toString()}`
+  }
   const token = req.headers.authorization
   if (!token.split(" ")[1]) return res.status(500).send({ message: "token not found!" })
   next()

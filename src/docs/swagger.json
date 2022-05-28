@@ -1528,12 +1528,15 @@
 
     "components": {
         "securitySchemes": {
-            "JWT": {
-                "description": "",
-                "type": "apiKey",
-                "name": "Authorization",
-                "in": "header"
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "in": "header",
+                "bearerFormat": "JWT"
             }
+        },
+        "security": {
+            "bearerAuth": []
         },
         "schemas": {
             "request": {
